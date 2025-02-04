@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub User Card</title>
+    <style>
+        .card {
+            max-width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        .followers {
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="fol" class="card">
+    </div>
+    <script>
+        const requestUrl = 'https://api.github.com/users/hiteshchoudhary'
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', requestUrl)
+        xhr.onreadystatechange = function(){
+            if (xhr.readyState === 4) {
+                const data = JSON.parse(this.responseText)
+                const div = document.getElementById('fol');
+                div.innerHTML = `
+                    <img src="${data.avatar_url}" alt="Profile Avatar" class="avatar">
+                    <p class="followers">Followers: ${data.followers}</p>
+                `;
+            }
+        }
+        xhr.send();
+    </script>
+</body>
+</html>
